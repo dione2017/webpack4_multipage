@@ -6,10 +6,10 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server  --config build/web/webpack.dev.conf.js",
-    "build": "npm run eslint && cross-env NODE_ENV=production webpack --progress --colors --config build/web/webpack.prod.conf.js",
-    "eslint": "eslint --format node_modules/eslint-formatter-friendly official_web",
-    "eslintFix": "eslint --fix official_web"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server  --config build/webpack.dev.conf.js",
+    "build": "npm run eslint && cross-env NODE_ENV=production webpack --progress --colors --config build/webpack.prod.conf.js",
+    "eslint": "eslint --format node_modules/eslint-formatter-friendly src",
+    "eslint:fix": "eslint --fix src"
   },
   "husky": {
     "hooks": {
@@ -66,8 +66,7 @@
   "dependencies": {
     "bootstrap": "^4.1.3",
     "jquery": "^1.12.4",
-    "loadash": "^1.0.0",
-    "zepto": "^1.2.0"
+    "loadash": "^1.0.0"
   },
   "browserslist": [
     "last 200 versions"

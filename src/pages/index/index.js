@@ -10,7 +10,7 @@ console.log(_);
 console.log($);
 
 function test () {
-  console.log("async");
+  console.log("async4");
 }
 
 test();

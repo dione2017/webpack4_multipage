@@ -1,11 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-// 清除目录等
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-
+const CleanWebpackPlugin = require("clean-webpack-plugin"); // 清除目录
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpackConfigBase = require("./webpack.base.conf");
@@ -13,7 +11,7 @@ const webpackConfigBase = require("./webpack.base.conf");
 const webpackConfigProd = {
   mode: "production", // 通过 mode 声明生产环境
   output: {
-    path: path.resolve(process.cwd(), "dist/web"),
+    path: path.resolve(process.cwd(), "dist/"),
     // 打包多出口文件
     filename: "js/[name].[hash].js",
     publicPath: "./"
@@ -24,13 +22,13 @@ const webpackConfigProd = {
       new UglifyJSPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true // set to true if you want JS source maps
+        sourceMap: false // set to true if you want JS source maps
       }),
       new OptimizeCSSPlugin({})
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(["dist/web/**/*"], {
+    new CleanWebpackPlugin(["dist/**/*"], {
       root: process.cwd(), // 根目录
       verbose: true, // 开启在控制台输出信息
       // dry Use boolean "true" to test/emulate delete. (will not remove files).
@@ -61,7 +59,6 @@ const webpackConfigProd = {
   module: {
     rules: []
   }
-
 };
 
 module.exports = merge(webpackConfigBase, webpackConfigProd);

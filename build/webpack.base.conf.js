@@ -7,13 +7,13 @@ const PurifyCssWebpack = require("purifycss-webpack"); // 消除冗余的css
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // html模板
 const CopyWebpackPlugin = require("copy-webpack-plugin"); // 静态资源输出
 const rules = require("./webpack.rules.conf.js");
+const appSrc = path.join(process.cwd(), "./src");
 
 const getHtmlConfig = function (name, chunks) {
   return {
-    template: `./official_web/pages/${name}/${name}.html`,
+    template: `${appSrc}/pages/${name}/index.html`,
     filename: `${name}.html`,
     favicon: './public/favicon.ico',
-    // title: title,
     inject: true,
     hash: true, // 开启hash  ?[hash]
     chunks: chunks,
@@ -27,13 +27,10 @@ const getHtmlConfig = function (name, chunks) {
 
 function getEntry () {
   let entry = {};
-  glob.sync("./official_web/pages/**/*.js").forEach(function (fileDir) {
-  	let pathObj = path.parse(fileDir)
-  	let directoryName = pathObj.dir.match(/\/\w+$/g)[0].split("/")[1]
-  	if (directoryName !== pathObj.name) {
-  		throw new Error("filename must be named with the current directory name")
-  	}
-    entry[pathObj.name] = [fileDir];
+  glob.sync(path.join(appSrc, "pages/**/index.js")).forEach(function (fileDir) {
+  	let pathObj = path.parse(fileDir);
+    let entryJsName = pathObj.dir.match(/\/\w+$/g)[0].split("/")[1]; // 用文件夹名字作为入口名。
+    entry[entryJsName] = [fileDir];
   });
   return entry;
 };
@@ -46,7 +43,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@": path.resolve(process.cwd(), "official_web")
+      "@": appSrc
     }
   },
   externals: {
@@ -79,15 +76,10 @@ module.exports = {
     }),
     // 静态资源输出
     new CopyWebpackPlugin([{
-      from: path.resolve(process.cwd(), "official_web/assets"),
+      from: path.join(appSrc, "/assets"),
       to: "./assets",
       ignore: [".*"]
-    }]),
-    // 消除冗余的css代码
-    new PurifyCssWebpack({
-      paths: glob.sync(path.join(process.cwd(), "official_web/pages/*/*.html"))
-    })
-
+    }])
   ]
 };
 
