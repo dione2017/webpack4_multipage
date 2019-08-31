@@ -1,6 +1,6 @@
-node_modules
+node_modules/
 dist
-.idea
-.DS_Store
-.vscode/
+public
+yarn-error.log
+yarn.lock
 package-lock.json

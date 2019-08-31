@@ -1,3 +1,16 @@
 {
-	"presets": ["env", "stage-3"]
+  "presets": [
+    [
+      "@babel/preset-env", {
+        "corejs": 3,
+        "targets": {
+          "browsers": "> 0.25%"
+        },
+        "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "plugins": [
+    ["@babel/plugin-transform-runtime"]
+  ]
 }
