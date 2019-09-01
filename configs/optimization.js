@@ -12,7 +12,7 @@ export default {
         priority: 10, // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
       },
       common: { // 抽离自己写的公共代码，common这个名字可以随意起
-        chunks: "initial",
+        chunks: "all",
         name: "common", // 任意命名
         minSize: 10000, // 只要大小超出设置的这个数值，就生成一个新包
         minChunks: 2,

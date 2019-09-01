@@ -10,7 +10,7 @@ export default  {
   mode: NODE_ENV,
   entry,
   output: {
-    filename: isDevelopment ? "js/bundle.js" : "js/[name].[contentHash:8].js",
+    filename: isDevelopment ? "js/[name].bundle.js" : "js/[name].[contentHash:8].js",
     path: isProduction ? path.resolve(__dirname, "../dist") : undefined
   },
   resolve: {
