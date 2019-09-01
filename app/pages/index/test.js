@@ -1,3 +1,3 @@
 export default async function test () {
-  console.log("32dasdadsads1");
+  console.log("111");
 };
