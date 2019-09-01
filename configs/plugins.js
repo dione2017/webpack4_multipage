@@ -10,7 +10,7 @@ import { isProduction, isDevelopment, appPath } from "./env";
 
 function getEntry () {
   let entry = {};
-  glob.sync(path.join(appPath, "pages/**/index.js")).forEach(function (fileDir) {
+  glob.sync(path.resolve(appPath, "pages/**/index.js")).forEach(function (fileDir) {
   	let pathObj = path.parse(fileDir);
     let entryName = pathObj.dir.match(/\/\w+$/g)[0].split("/")[1]; // 用文件夹名字作为入口名。
     entry[entryName] = fileDir;
@@ -54,13 +54,12 @@ function getHtmlWebpackPluginConfigs () {
           minifyCSS: true,
           minifyURLs: true,
         },
-      }
-      : {}
+      } : {}
     });
     res.push(plugin);
   }
   return res;
 }
 
-export { entry }
-export default [...plugins, ...getHtmlWebpackPluginConfigs()]
+export { entry };
+export default [...plugins, ...getHtmlWebpackPluginConfigs()];

@@ -1,4 +1,4 @@
-import { isProduction } from "./env";
+import { isProduction, shouldUseSourceMap } from "./env";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin";
 
@@ -21,7 +21,27 @@ export default {
     }
   },
   minimizer: [
-    isProduction && new TerserWebpackPlugin({}),
-    isProduction && new OptimizeCSSAssetsPlugin({})
+    // This is only used in production mode
+    isProduction && new TerserWebpackPlugin({
+      // Use multi-process parallel running to improve the build speed
+      // Default number of concurrent runs: os.cpus().length - 1
+      parallel: true,
+      // Enable file caching
+      cache: true,
+      sourceMap: shouldUseSourceMap,
+    }),
+    // This is only used in production mode
+    isProduction && new OptimizeCSSAssetsPlugin({
+      cssProcessorOptions: {
+        map: shouldUseSourceMap
+          ? {
+              inline: false,
+              // `annotation: true` appends the sourceMappingURL to the end of
+              // the css file, helping the browser find the sourcemap
+              annotation: true,
+            }
+          : false,
+      },
+    }),
   ].filter(Boolean)
 }

@@ -1,6 +1,10 @@
-import path from "path";
+import {
+  appPath,
+  isDevelopment,
+  isProduction,
+  shouldUseSourceMap
+} from "./env";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { isDevelopment, isProduction, shouldUseSourceMap } from "./env";
 import PostCssPresetEnv from "postcss-preset-env";
 import PostcssFlexBugsfixes from "postcss-flexbugs-fixes";
 import friendlyFormatter from "eslint-formatter-friendly"
@@ -36,10 +40,9 @@ export default {
       options: {
         formatter: friendlyFormatter
       }
-    },
-    {
+    }, {
       test: /\.js$/,
-      include: path.resolve(__dirname, "../app"),
+      include: appPath,
       use: "babel-loader"
     }, {
       test: /\.css$/,
@@ -51,14 +54,12 @@ export default {
             publicPath: "../"
           }
         },
-        {
-          loader: "css-loader"
-        },
+        "css-loader",
         postCssLoaderConfig
       ].filter(Boolean)
     }, {
       test: /\.less$/,
-      include: path.resolve(__dirname, "../app"),
+      include: appPath,
       use: [
         isDevelopment && "style-loader",
         isProduction && {
@@ -67,12 +68,8 @@ export default {
             publicPath: "../"
           }
         },
-        {
-          loader: "css-loader"
-        },
-        {
-          loader: "less-loader"
-        },
+        "css-loader",
+        "less-loader",
         postCssLoaderConfig
       ].filter(Boolean)
     }, {
@@ -82,8 +79,7 @@ export default {
           loader: "file-loader"
         }
       ]
-    },
-    {
+    }, {
       test: /\.(png|jpg|gif)$/,
       use: [{
         loader: "url-loader",
@@ -92,15 +88,13 @@ export default {
           outputPath: "images"
         }
       }]
-    },
-    {
+    }, {
       test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
       loader: "url-loader",
       options: {
         limit: 10000
       }
-    },
-    {
+    }, {
       test: /\.html$/,
       use: ["html-withimg-loader"] // html中的img标签
     }
