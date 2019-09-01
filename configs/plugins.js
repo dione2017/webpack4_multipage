@@ -6,7 +6,14 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ProgressBarPlugin from "progress-bar-webpack-plugin";
-import { isProduction, isDevelopment, appPath } from "./env";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+import {
+  isProduction,
+  isDevelopment,
+  appPath,
+  isBundleAnalyze
+} from "./env";
 
 function getEntry () {
   let entry = {};
@@ -27,7 +34,8 @@ const plugins = [
   isProduction && new MiniCssExtractPlugin({
     filename: 'css/[name].[contentHash:8].css',
     chunkFilename: 'css/[id].[contentHash:8].css'
-  })
+  }),
+  isProduction && isBundleAnalyze && new BundleAnalyzerPlugin()
 ].filter(Boolean);
 
 function getHtmlWebpackPluginConfigs () {
