@@ -2,7 +2,7 @@ import path from "path";
 import { appPath, HOST, PORT } from "./env";
 
 export default {
-  contentBase: path.join(appPath, "./app/pages/**/*.html"),
+  contentBase: path.resolve(appPath, "pages/**/*.html"),
   publicPath: "/",
   watchContentBase: true,
   host: HOST,
@@ -12,6 +12,6 @@ export default {
   stats: "errors-only", //stats: "errors-only"表示只打印错误：
   hot: true, // 开启热更新
   before (app, server) {
-    server._watch(path.join(appPath, "./app/pages/**/*.html"));
+    server._watch(path.resolve(appPath, "pages/**/*.html"));
   }
 }
