@@ -1,5 +1,10 @@
 import path from "path";
-import { NODE_ENV, isDevelopment, isProduction, appPath } from "./env";
+import {
+  NODE_ENV,
+  isDevelopment,
+  isProduction,
+  appPath
+} from "./env";
 import optimization from "./optimization";
 import module from "./module";
 import plugins, { entry } from "./plugins";
@@ -17,7 +22,10 @@ export default  {
     extensions: [".js", ".css", ".less", ".json"],
     alias: {
       "@": appPath,
-    },
+    }
+  },
+  externals: {
+    jquery: 'jQuery'
   },
   optimization,
   module,

@@ -1,13 +1,12 @@
-import { cloneDeep } from "lodash";
+import { cloneDeep, throttle, debounce } from "lodash-es";
 import $ from "jquery";
 import "reset.css";
-import "bootstrap/dist/css/bootstrap.css";
 import "@/assets/styles/common.less";
 import "./index.less";
 
 import "./test.js";
 
-console.log(cloneDeep, $);
+console.log(cloneDeep, throttle, debounce, $);
 console.log("index1122");
 
 if (module.hot) {
