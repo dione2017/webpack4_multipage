@@ -1,12 +1,10 @@
 import path from "path";
-import { appPath, HOST, PORT } from "./env";
+import { appPath } from "./env";
 
 export default {
   contentBase: path.resolve(appPath, "pages/**/*.html"),
   publicPath: "/",
   watchContentBase: true,
-  host: HOST,
-  port: PORT,
   overlay: true, // 浏览器页面上显示错误
   open: false, // 开启浏览器
   stats: "errors-only", //stats: "errors-only"表示只打印错误：
