@@ -24,6 +24,11 @@ export default  {
       "@": appPath,
     }
   },
+  performance: {
+    hints: "warning", // "error" or false are valid too
+    maxEntrypointSize: 50000, // in bytes, default 250k
+    maxAssetSize: 450000, // in bytes
+  },
   externals: {
     jquery: 'jQuery'
   },

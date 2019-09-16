@@ -36,7 +36,7 @@ export default {
     { // To be safe, you can use enforce: "pre" section to check source files, not modified by other loaders (like babel-loader)
       enforce: "pre",
       test: /\.js$/,
-      exclude: /node_modules/,
+      include: appPath,
       loader: "eslint-loader",
       options: {
         formatter: friendlyFormatter

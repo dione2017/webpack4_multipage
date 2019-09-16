@@ -28,8 +28,10 @@ function getEntry () {
 const entry = getEntry();
 
 const plugins = [
-  new CleanWebpackPlugin(),
-  new ProgressBarPlugin(),
+  isProduction && new CleanWebpackPlugin(),
+  new ProgressBarPlugin({
+    summary: isDevelopment
+  }),
   isDevelopment && new webpack.HotModuleReplacementPlugin(),
   isProduction && new MiniCssExtractPlugin({
     filename: 'css/[name].[contentHash:8].css',
